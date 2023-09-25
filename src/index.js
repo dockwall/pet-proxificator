@@ -1,11 +1,13 @@
-const express = require("express")
-require('dotenv').config()
-
-const PORT = process.env.SERVER_PORT;
+const express = require('express');
+const cors = require('cors');
 
 const app = express();
+app.use(cors)
 
-app.get('/api', (req, res) => {
-    res.send('hello world!')
+require('dotenv').config();
+const PORT = process.env.SERVER_PORT;
+
+app.get('/api/unsplash/search-photos', (req, res) => {
 })
+
 app.listen(PORT, () => console.log(`using port ${PORT}`))
