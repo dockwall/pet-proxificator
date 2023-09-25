@@ -17,6 +17,11 @@ router.get('/', async (req, res) => {
         const apiRes = await needle('get', `${UNSPLASH_API_URL}?${options}`);
         const data = apiRes.body;
 
+        // Dev logs
+        if (process.env.NODE_ENV !== 'production') {
+            console.log(`REQUEST ${UNSPLASH_API_URL}?${options}`)
+        }
+
         res.status(200).json(data);
     } catch (error) {
         res.status(500).json(error)
