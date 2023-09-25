@@ -2,12 +2,17 @@ const url = require('url');
 const express = require('express');
 const router = express.Router();
 const needle = require('needle');
+const apicache = require('apicache');
 
+// Unsplash API settings
 const UNSPLASH_API_URL = process.env.UNSPLASH_API_URL;
 const UNSPLASH_API_KEY_NAME = process.env.UNSPLASH_API_KEY_NAME;
 const UNSPLASH_API_KEY_VALUE = process.env.UNSPLASH_API_KEY_VALUE;
 
-router.get('/', async (req, res) => {
+// Init API cache
+const cache = apicache.middleware
+
+router.get('/', cache('5 minutes'), async (req, res) => {
     try {
         const options = new URLSearchParams({
             [UNSPLASH_API_KEY_NAME]: UNSPLASH_API_KEY_VALUE,
